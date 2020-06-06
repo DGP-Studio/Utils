@@ -1,0 +1,1602 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="31">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>87445</ID>
+      <Description>"装备魔改脚本"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" Activated="1" RealAddress="00000000"/>
+      <Color>FF8000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>81</ID>
+          <Description>"基址"</Description>
+          <LastState Value="00007FF6C05D7850" RealAddress="2E1AFB85F00"/>
+          <ShowAsHex>1</ShowAsHex>
+          <Color>FF0000</Color>
+          <VariableType>8 Bytes</VariableType>
+          <Address>p_equip</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>80</ID>
+          <Description>"高亮装备编辑"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Activated="1"/>
+          <Color>808000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Dungeons-Win64-Shipping.exe
+  Version: 
+  Date   : 2020-06-04
+  Author : Idlehands88
+  Localization: Ch1swill/DismissedLight
+
+  此脚本用于修改你的装备的各项属性
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT_Equipment,Dungeons-Win64-Shipping.exe,F3 0F 10 49 3C 48 8B DA) // should be unique
+alloc(newmem,$1000,"Dungeons-Win64-Shipping.exe"+8590F6)
+
+registersymbol(p_equip)
+label(p_equip)
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [p_equip],rcx
+  movss xmm1,[rcx+3C]
+  jmp return
+
+p_equip:
+dq
+
+INJECT_Equipment:
+  jmp newmem
+return:
+registersymbol(INJECT_Equipment)
+
+[DISABLE]
+
+INJECT_Equipment:
+  db F3 0F 10 49 3C
+
+unregistersymbol(p_equip)
+unregistersymbol(INJECT_Equipment)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Dungeons-Win64-Shipping.exe"+8590F6
+
+"Dungeons-Win64-Shipping.exe"+8590E0: F3 0F 10 41 14           -  movss xmm0,[rcx+14]
+"Dungeons-Win64-Shipping.exe"+8590E5: E9 B6 5E 0C 00           -  jmp Dungeons-Win64-Shipping.exe+91EFA0
+"Dungeons-Win64-Shipping.exe"+8590EA: CC                       -  int 3 
+"Dungeons-Win64-Shipping.exe"+8590EB: CC                       -  int 3 
+"Dungeons-Win64-Shipping.exe"+8590EC: CC                       -  int 3 
+"Dungeons-Win64-Shipping.exe"+8590ED: CC                       -  int 3 
+"Dungeons-Win64-Shipping.exe"+8590EE: CC                       -  int 3 
+"Dungeons-Win64-Shipping.exe"+8590EF: CC                       -  int 3 
+"Dungeons-Win64-Shipping.exe"+8590F0: 40 53                    -  push rbx
+"Dungeons-Win64-Shipping.exe"+8590F2: 48 83 EC 20              -  sub rsp,20
+// ---------- INJECTING HERE ----------
+"Dungeons-Win64-Shipping.exe"+8590F6: F3 0F 10 49 3C           -  movss xmm1,[rcx+3C]
+// ---------- DONE INJECTING  ----------
+"Dungeons-Win64-Shipping.exe"+8590FB: 48 8B DA                 -  mov rbx,rdx
+"Dungeons-Win64-Shipping.exe"+8590FE: 48 8B CA                 -  mov rcx,rdx
+"Dungeons-Win64-Shipping.exe"+859101: E8 DA 5E 0C 00           -  call Dungeons-Win64-Shipping.exe+91EFE0
+"Dungeons-Win64-Shipping.exe"+859106: 48 8B C3                 -  mov rax,rbx
+"Dungeons-Win64-Shipping.exe"+859109: 48 83 C4 20              -  add rsp,20
+"Dungeons-Win64-Shipping.exe"+85910D: 5B                       -  pop rbx
+"Dungeons-Win64-Shipping.exe"+85910E: C3                       -  ret 
+"Dungeons-Win64-Shipping.exe"+85910F: CC                       -  int 3 
+"Dungeons-Win64-Shipping.exe"+859110: 40 53                    -  push rbx
+"Dungeons-Win64-Shipping.exe"+859112: 48 83 EC 20              -  sub rsp,20
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>84</ID>
+              <Description>"强度等级"</Description>
+              <DropDownList DisplayValueAsItem="1">11.70289135:108级
+11.62885952:107级
+11.61367989:106级
+11.58723831:106级
+11.5807066:106级
+11.5774231:106级
+11.44435406:105级
+11.40576267:105级
+11.40062618:105级
+11.39490128:104级
+11.39437866:104级
+11.38201904:104级
+11.36130619:104级
+11.35752773:104级
+11.29482269:103级
+11.16436863:100级
+10.92296028:100级
+10000:测试等级
+</DropDownList>
+              <LastState Value="11.37676239" RealAddress="2E1AFB85F3C"/>
+              <Color>000000</Color>
+              <VariableType>Float</VariableType>
+              <Address>p_equip</Address>
+              <Offsets>
+                <Offset>3C</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>83</ID>
+              <Description>"稀有度"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:普通
+1:稀有
+2:独特
+</DropDownList>
+              <LastState Value="2" RealAddress="2E1AFB85F60"/>
+              <Color>1E8EFF</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>p_equip</Address>
+              <Offsets>
+                <Offset>60</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>82</ID>
+              <Description>"物品"</Description>
+              <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">2425:剑
+2426:钻石剑
+2427:鹰身大剑
+2428:武士刀
+2429:大师的武士刀
+2430:暗黑武士刀
+2431:矛
+2432:呢喃矛
+2433:幸运长矛
+2434:双刃阔剑
+2435:窃心者
+2436:阔剑
+2437:镰刀
+2438:梦魇
+2439:笑到最后
+2440:护手
+2441:灵魂拳套
+2442:战锤者
+2443:战士之缚
+2444:长柄刀
+2445:弑墓者
+2446:剧毒长刀
+2447:双刃斧
+2448:龙卷风
+2449:诅咒之斧
+2450:鞭子
+2451:藤条鞭
+2452:双持匕首
+2453:寒霜獠牙
+2454:月之匕首
+2455:弯刀
+2456:无名之刃
+2457:舞者之剑
+2458:锤子
+2459:日之恩惠
+2460:链锤
+2461:镐
+2462:钻石镐
+2463:崩溃
+2464:斧头
+2465:烙火
+2466:高地之斧
+2467:大锤
+2468:雷霆之锤
+2469:引力之锤
+2470:灵魂长镰
+2471:狱卒的镰刀
+2472:冰霜长镰
+2473:灵魂之刃
+2474:真理探索者
+2475:永恒之刃
+2476:弓
+2477:骨弓
+2478:双子弓
+2479:捣蛋弓
+2480:绿色恐吓者
+2481:粉红流氓
+2482:短弓
+2483:紫色风暴
+2484:机械短弓
+2485:长弓
+2486:守卫者之弓
+2487:红蛇
+2488:猎手弓
+2489:猎人的誓言
+2490:主宰之弓
+2491:灵魂之弓
+2492:光灵弓
+2493:亡魂之弓
+2494:能量之弓
+2495:精英力量弓
+2496:刀翅蜂鸟
+2497:弩
+2498:穿刺者
+2499:蔚蓝探索者
+2500:崩溃
+2501:重弩
+2502:末日弩
+2503:杀戮之弩
+2504:快弩
+2505:蝴蝶弩
+2506:自动弩
+2507:散弹弩
+2508:竖琴弩
+2509:雷电琴弩
+2510:灵魂弩
+2511:猎魂弩
+2512:虚空召唤者
+2513:爆炸弩
+2514:聚爆弩
+2515:火弩箭
+2516:冰雪之弓
+2517:凛冬之触
+2518:守卫之甲
+2519:奇特盔甲
+2520:强化链甲
+2521:忠实护甲
+2522:鳞甲
+2523:高地护甲
+2524:幻魔长袍
+2525:灰烬长袍
+2526:猎人之甲
+2527:弓箭手护甲
+2528:窃贼
+2529:蜘蛛盔甲
+2530:战袍
+2531:华丽长袍
+2532:暗黑之甲
+2533:泰坦钢盔
+2534:狼甲
+2535:狐狸甲
+2536:冠军之甲
+2537:英雄之甲
+2538:雇佣兵盔甲
+2539:叛徒盔甲
+2540:冷酷战甲
+2541:凋零盔甲
+2542:幻翼护甲
+2543:冰封禁制
+2544:板甲
+2545:全金属盔甲
+2546:探穴者护甲
+2547:地穴爬行者
+2548:灵魂长袍
+2549:灵魂舞者长袍
+2550:神秘战甲
+2551:崩溃
+2552:NULL
+2553:NULL
+2554:NULL
+2555:NULL
+2556:NULL
+2557:NULL
+2558:NULL
+2559:NULL
+2560:NULL
+2561:NULL
+2562:崩溃
+2563:腐化种子
+2564:寒冰魔杖
+2565:弱化之鼓
+2566:漂流之羽
+2567:风之号角
+2568:迅捷之靴
+2569:幽灵战袍
+2570:钓鱼竿
+2571:毒帽菇
+2572:休克粉末
+2573:铁皮护身符
+2574:美味的骨头
+2575:优质小麦
+2576:傀儡用具
+2577:爱心奖章
+2578:腐化信标
+2579:雷霆法杖
+2580:灵魂治疗器
+2581:护盾图腾
+2582:崩溃
+</DropDownList>
+              <LastState Value="2547" RealAddress="2E1AFB85F28"/>
+              <Color>FDB102</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>p_equip</Address>
+              <Offsets>
+                <Offset>28</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>85</ID>
+              <Description>"附魔"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>86</ID>
+                  <Description>"技能 1 ID"</Description>
+                  <DropDownList ReadOnly="1" DisplayValueAsItem="1">0:空的附魔位
+1:锋利[近战]
+2:击退[近战]
+3:抢夺[近战]
+4:探矿者[近战]
+5:火焰附加[近战]
+6:狂怒[近战]
+7:爆炸[近战]
+8:暴击[近战]
+9:霜冻[近战]
+10:毒雾[近战]
+11:剧毒[未启用]
+12:吸血[近战]
+13:协助[未启用]
+14:引力[近战]
+15:灵魂共振[近战]
+16:灵魂输导[近战]
+17:眩晕[近战]
+18:洞穴蜘蛛[生物魔咒]
+19:漩涡[近战]
+20:亡灵杀手[近战]
+21:进伤[近战]
+22:灵魂虹吸[近战]
+23:治愈光环[近战]
+24:链锁[近战]
+25:落雷[近战]
+26:回击[近战]
+27:冲击波[近战]
+28:虚弱[近战]
+29:节拍窃取[远程]
+30:适应度调整[未启用]
+31:弓之恩惠[未启用]
+32:反弹[远程]
+33:伤害[远程]
+34:冲击[远程]
+35:无限[远程]
+36:多重射击[远程]
+37:穿透[远程]
+38:连锁反应[远程]
+39:引力[远程]
+40:猎手弓魔咒[未启用]
+41:灵魂共振[远程]
+42:灵魂输导[远程]
+43:毒雾[远程]
+44:剧毒[未启用]
+45:范围霜冻[未启用]
+46:快速射击[远程]
+47:超级蓄力[远程]
+48:奖励射击[远程]
+49:祛魔[远程]
+50:爆炸射击[远程]
+51:光辉箭[远程]
+52:加速[远程]
+53:变大[远程]
+54:狂怒[远程]
+55:慢弓魔咒[未启用]
+56:霜冻[生物附魔]
+57:保护[盔甲]
+58:冷却[盔甲]
+59:拼死一搏[盔甲]
+60:偏转[盔甲]
+61:生命恢复[盔甲]
+62:荆棘[盔甲]
+63:治疗盟友[盔甲]
+64:屏蔽护盾[盔甲]
+65:屏障[盔甲]
+66:猎手弓标记附魔[未启用]
+67:回收[盔甲]
+68:冻结[盔甲]
+69:胆怯[盔甲]
+70:闪电[盔甲]
+71:灼烧[盔甲]
+72:雪球[盔甲]
+73:引力脉冲[盔甲]
+74:焰尾[盔甲]
+75:狂暴[盔甲]
+76:急行[盔甲]
+77:灵魂急行[盔甲]
+78:药水护盾[盔甲]
+79:食物储备[盔甲]
+80:惊喜礼物[盔甲]
+81:双倍伤害[未启用]
+82:快速攻击[未启用]
+83:急行[未启用]
+84:生命协同[盔甲]
+85:速度协同[盔甲]
+86:探索者[盔甲]
+87:船踪[未启用]
+88:缓慢抗性[盔甲]
+89:缓慢免疫[盔甲]
+</DropDownList>
+                  <LastState Value="80" RealAddress="2E1B8AF1BE0"/>
+                  <Color>008000</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                    <Offset>40</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>87</ID>
+                  <Description>"技能 1 ID"</Description>
+                  <DropDownList ReadOnly="1" DisplayValueAsItem="1">0:空的附魔位
+1:锋利[近战]
+2:击退[近战]
+3:抢夺[近战]
+4:探矿者[近战]
+5:火焰附加[近战]
+6:狂怒[近战]
+7:爆炸[近战]
+8:暴击[近战]
+9:霜冻[近战]
+10:毒雾[近战]
+11:剧毒[未启用]
+12:吸血[近战]
+13:协助[未启用]
+14:引力[近战]
+15:灵魂共振[近战]
+16:灵魂输导[近战]
+17:眩晕[近战]
+18:洞穴蜘蛛[生物魔咒]
+19:漩涡[近战]
+20:亡灵杀手[近战]
+21:进伤[近战]
+22:灵魂虹吸[近战]
+23:治愈光环[近战]
+24:链锁[近战]
+25:落雷[近战]
+26:回击[近战]
+27:冲击波[近战]
+28:虚弱[近战]
+29:节拍窃取[远程]
+30:适应度调整[未启用]
+31:弓之恩惠[未启用]
+32:反弹[远程]
+33:伤害[远程]
+34:冲击[远程]
+35:无限[远程]
+36:多重射击[远程]
+37:穿透[远程]
+38:连锁反应[远程]
+39:引力[远程]
+40:猎手弓魔咒[未启用]
+41:灵魂共振[远程]
+42:灵魂输导[远程]
+43:毒雾[远程]
+44:剧毒[未启用]
+45:范围霜冻[未启用]
+46:快速射击[远程]
+47:超级蓄力[远程]
+48:奖励射击[远程]
+49:祛魔[远程]
+50:爆炸射击[远程]
+51:光辉箭[远程]
+52:加速[远程]
+53:变大[远程]
+54:狂怒[远程]
+55:慢弓魔咒[未启用]
+56:霜冻[生物附魔]
+57:保护[盔甲]
+58:冷却[盔甲]
+59:拼死一搏[盔甲]
+60:偏转[盔甲]
+61:生命恢复[盔甲]
+62:荆棘[盔甲]
+63:治疗盟友[盔甲]
+64:屏蔽护盾[盔甲]
+65:屏障[盔甲]
+66:猎手弓标记附魔[未启用]
+67:回收[盔甲]
+68:冻结[盔甲]
+69:胆怯[盔甲]
+70:闪电[盔甲]
+71:灼烧[盔甲]
+72:雪球[盔甲]
+73:引力脉冲[盔甲]
+74:焰尾[盔甲]
+75:狂暴[盔甲]
+76:急行[盔甲]
+77:灵魂急行[盔甲]
+78:药水护盾[盔甲]
+79:食物储备[盔甲]
+80:惊喜礼物[盔甲]
+81:双倍伤害[未启用]
+82:快速攻击[未启用]
+83:急行[未启用]
+84:生命协同[盔甲]
+85:速度协同[盔甲]
+86:探索者[盔甲]
+87:船踪[未启用]
+88:缓慢抗性[盔甲]
+89:缓慢免疫[盔甲]
+</DropDownList>
+                  <LastState Value="59" RealAddress="2E1B8AF1BE8"/>
+                  <Color>008000</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>8</Offset>
+                    <Offset>40</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>88</ID>
+                  <Description>"技能 1 ID"</Description>
+                  <DropDownList ReadOnly="1" DisplayValueAsItem="1">0:空的附魔位
+1:锋利[近战]
+2:击退[近战]
+3:抢夺[近战]
+4:探矿者[近战]
+5:火焰附加[近战]
+6:狂怒[近战]
+7:爆炸[近战]
+8:暴击[近战]
+9:霜冻[近战]
+10:毒雾[近战]
+11:剧毒[未启用]
+12:吸血[近战]
+13:协助[未启用]
+14:引力[近战]
+15:灵魂共振[近战]
+16:灵魂输导[近战]
+17:眩晕[近战]
+18:洞穴蜘蛛[生物魔咒]
+19:漩涡[近战]
+20:亡灵杀手[近战]
+21:进伤[近战]
+22:灵魂虹吸[近战]
+23:治愈光环[近战]
+24:链锁[近战]
+25:落雷[近战]
+26:回击[近战]
+27:冲击波[近战]
+28:虚弱[近战]
+29:节拍窃取[远程]
+30:适应度调整[未启用]
+31:弓之恩惠[未启用]
+32:反弹[远程]
+33:伤害[远程]
+34:冲击[远程]
+35:无限[远程]
+36:多重射击[远程]
+37:穿透[远程]
+38:连锁反应[远程]
+39:引力[远程]
+40:猎手弓魔咒[未启用]
+41:灵魂共振[远程]
+42:灵魂输导[远程]
+43:毒雾[远程]
+44:剧毒[未启用]
+45:范围霜冻[未启用]
+46:快速射击[远程]
+47:超级蓄力[远程]
+48:奖励射击[远程]
+49:祛魔[远程]
+50:爆炸射击[远程]
+51:光辉箭[远程]
+52:加速[远程]
+53:变大[远程]
+54:狂怒[远程]
+55:慢弓魔咒[未启用]
+56:霜冻[生物附魔]
+57:保护[盔甲]
+58:冷却[盔甲]
+59:拼死一搏[盔甲]
+60:偏转[盔甲]
+61:生命恢复[盔甲]
+62:荆棘[盔甲]
+63:治疗盟友[盔甲]
+64:屏蔽护盾[盔甲]
+65:屏障[盔甲]
+66:猎手弓标记附魔[未启用]
+67:回收[盔甲]
+68:冻结[盔甲]
+69:胆怯[盔甲]
+70:闪电[盔甲]
+71:灼烧[盔甲]
+72:雪球[盔甲]
+73:引力脉冲[盔甲]
+74:焰尾[盔甲]
+75:狂暴[盔甲]
+76:急行[盔甲]
+77:灵魂急行[盔甲]
+78:药水护盾[盔甲]
+79:食物储备[盔甲]
+80:惊喜礼物[盔甲]
+81:双倍伤害[未启用]
+82:快速攻击[未启用]
+83:急行[未启用]
+84:生命协同[盔甲]
+85:速度协同[盔甲]
+86:探索者[盔甲]
+87:船踪[未启用]
+88:缓慢抗性[盔甲]
+89:缓慢免疫[盔甲]
+</DropDownList>
+                  <LastState Value="72" RealAddress="2E1B8AF1BF0"/>
+                  <Color>008000</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>10</Offset>
+                    <Offset>40</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>89</ID>
+                  <Description>"技能 2 ID"</Description>
+                  <DropDownList ReadOnly="1" DisplayValueAsItem="1">0:空的附魔位
+1:锋利[近战]
+2:击退[近战]
+3:抢夺[近战]
+4:探矿者[近战]
+5:火焰附加[近战]
+6:狂怒[近战]
+7:爆炸[近战]
+8:暴击[近战]
+9:霜冻[近战]
+10:毒雾[近战]
+11:剧毒[未启用]
+12:吸血[近战]
+13:协助[未启用]
+14:引力[近战]
+15:灵魂共振[近战]
+16:灵魂输导[近战]
+17:眩晕[近战]
+18:洞穴蜘蛛[生物魔咒]
+19:漩涡[近战]
+20:亡灵杀手[近战]
+21:进伤[近战]
+22:灵魂虹吸[近战]
+23:治愈光环[近战]
+24:链锁[近战]
+25:落雷[近战]
+26:回击[近战]
+27:冲击波[近战]
+28:虚弱[近战]
+29:节拍窃取[远程]
+30:适应度调整[未启用]
+31:弓之恩惠[未启用]
+32:反弹[远程]
+33:伤害[远程]
+34:冲击[远程]
+35:无限[远程]
+36:多重射击[远程]
+37:穿透[远程]
+38:连锁反应[远程]
+39:引力[远程]
+40:猎手弓魔咒[未启用]
+41:灵魂共振[远程]
+42:灵魂输导[远程]
+43:毒雾[远程]
+44:剧毒[未启用]
+45:范围霜冻[未启用]
+46:快速射击[远程]
+47:超级蓄力[远程]
+48:奖励射击[远程]
+49:祛魔[远程]
+50:爆炸射击[远程]
+51:光辉箭[远程]
+52:加速[远程]
+53:变大[远程]
+54:狂怒[远程]
+55:慢弓魔咒[未启用]
+56:霜冻[生物附魔]
+57:保护[盔甲]
+58:冷却[盔甲]
+59:拼死一搏[盔甲]
+60:偏转[盔甲]
+61:生命恢复[盔甲]
+62:荆棘[盔甲]
+63:治疗盟友[盔甲]
+64:屏蔽护盾[盔甲]
+65:屏障[盔甲]
+66:猎手弓标记附魔[未启用]
+67:回收[盔甲]
+68:冻结[盔甲]
+69:胆怯[盔甲]
+70:闪电[盔甲]
+71:灼烧[盔甲]
+72:雪球[盔甲]
+73:引力脉冲[盔甲]
+74:焰尾[盔甲]
+75:狂暴[盔甲]
+76:急行[盔甲]
+77:灵魂急行[盔甲]
+78:药水护盾[盔甲]
+79:食物储备[盔甲]
+80:惊喜礼物[盔甲]
+81:双倍伤害[未启用]
+82:快速攻击[未启用]
+83:急行[未启用]
+84:生命协同[盔甲]
+85:速度协同[盔甲]
+86:探索者[盔甲]
+87:船踪[未启用]
+88:缓慢抗性[盔甲]
+89:缓慢免疫[盔甲]
+</DropDownList>
+                  <LastState Value="70" RealAddress="2E1B8AF1BF8"/>
+                  <Color>804000</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>18</Offset>
+                    <Offset>40</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>90</ID>
+                  <Description>"技能 2 ID"</Description>
+                  <DropDownList ReadOnly="1" DisplayValueAsItem="1">0:空的附魔位
+1:锋利[近战]
+2:击退[近战]
+3:抢夺[近战]
+4:探矿者[近战]
+5:火焰附加[近战]
+6:狂怒[近战]
+7:爆炸[近战]
+8:暴击[近战]
+9:霜冻[近战]
+10:毒雾[近战]
+11:剧毒[未启用]
+12:吸血[近战]
+13:协助[未启用]
+14:引力[近战]
+15:灵魂共振[近战]
+16:灵魂输导[近战]
+17:眩晕[近战]
+18:洞穴蜘蛛[生物魔咒]
+19:漩涡[近战]
+20:亡灵杀手[近战]
+21:进伤[近战]
+22:灵魂虹吸[近战]
+23:治愈光环[近战]
+24:链锁[近战]
+25:落雷[近战]
+26:回击[近战]
+27:冲击波[近战]
+28:虚弱[近战]
+29:节拍窃取[远程]
+30:适应度调整[未启用]
+31:弓之恩惠[未启用]
+32:反弹[远程]
+33:伤害[远程]
+34:冲击[远程]
+35:无限[远程]
+36:多重射击[远程]
+37:穿透[远程]
+38:连锁反应[远程]
+39:引力[远程]
+40:猎手弓魔咒[未启用]
+41:灵魂共振[远程]
+42:灵魂输导[远程]
+43:毒雾[远程]
+44:剧毒[未启用]
+45:范围霜冻[未启用]
+46:快速射击[远程]
+47:超级蓄力[远程]
+48:奖励射击[远程]
+49:祛魔[远程]
+50:爆炸射击[远程]
+51:光辉箭[远程]
+52:加速[远程]
+53:变大[远程]
+54:狂怒[远程]
+55:慢弓魔咒[未启用]
+56:霜冻[生物附魔]
+57:保护[盔甲]
+58:冷却[盔甲]
+59:拼死一搏[盔甲]
+60:偏转[盔甲]
+61:生命恢复[盔甲]
+62:荆棘[盔甲]
+63:治疗盟友[盔甲]
+64:屏蔽护盾[盔甲]
+65:屏障[盔甲]
+66:猎手弓标记附魔[未启用]
+67:回收[盔甲]
+68:冻结[盔甲]
+69:胆怯[盔甲]
+70:闪电[盔甲]
+71:灼烧[盔甲]
+72:雪球[盔甲]
+73:引力脉冲[盔甲]
+74:焰尾[盔甲]
+75:狂暴[盔甲]
+76:急行[盔甲]
+77:灵魂急行[盔甲]
+78:药水护盾[盔甲]
+79:食物储备[盔甲]
+80:惊喜礼物[盔甲]
+81:双倍伤害[未启用]
+82:快速攻击[未启用]
+83:急行[未启用]
+84:生命协同[盔甲]
+85:速度协同[盔甲]
+86:探索者[盔甲]
+87:船踪[未启用]
+88:缓慢抗性[盔甲]
+89:缓慢免疫[盔甲]
+</DropDownList>
+                  <LastState Value="57" RealAddress="2E1B8AF1C00"/>
+                  <Color>804000</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>20</Offset>
+                    <Offset>40</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>91</ID>
+                  <Description>"技能 2 ID"</Description>
+                  <DropDownList ReadOnly="1" DisplayValueAsItem="1">0:空的附魔位
+1:锋利[近战]
+2:击退[近战]
+3:抢夺[近战]
+4:探矿者[近战]
+5:火焰附加[近战]
+6:狂怒[近战]
+7:爆炸[近战]
+8:暴击[近战]
+9:霜冻[近战]
+10:毒雾[近战]
+11:剧毒[未启用]
+12:吸血[近战]
+13:协助[未启用]
+14:引力[近战]
+15:灵魂共振[近战]
+16:灵魂输导[近战]
+17:眩晕[近战]
+18:洞穴蜘蛛[生物魔咒]
+19:漩涡[近战]
+20:亡灵杀手[近战]
+21:进伤[近战]
+22:灵魂虹吸[近战]
+23:治愈光环[近战]
+24:链锁[近战]
+25:落雷[近战]
+26:回击[近战]
+27:冲击波[近战]
+28:虚弱[近战]
+29:节拍窃取[远程]
+30:适应度调整[未启用]
+31:弓之恩惠[未启用]
+32:反弹[远程]
+33:伤害[远程]
+34:冲击[远程]
+35:无限[远程]
+36:多重射击[远程]
+37:穿透[远程]
+38:连锁反应[远程]
+39:引力[远程]
+40:猎手弓魔咒[未启用]
+41:灵魂共振[远程]
+42:灵魂输导[远程]
+43:毒雾[远程]
+44:剧毒[未启用]
+45:范围霜冻[未启用]
+46:快速射击[远程]
+47:超级蓄力[远程]
+48:奖励射击[远程]
+49:祛魔[远程]
+50:爆炸射击[远程]
+51:光辉箭[远程]
+52:加速[远程]
+53:变大[远程]
+54:狂怒[远程]
+55:慢弓魔咒[未启用]
+56:霜冻[生物附魔]
+57:保护[盔甲]
+58:冷却[盔甲]
+59:拼死一搏[盔甲]
+60:偏转[盔甲]
+61:生命恢复[盔甲]
+62:荆棘[盔甲]
+63:治疗盟友[盔甲]
+64:屏蔽护盾[盔甲]
+65:屏障[盔甲]
+66:猎手弓标记附魔[未启用]
+67:回收[盔甲]
+68:冻结[盔甲]
+69:胆怯[盔甲]
+70:闪电[盔甲]
+71:灼烧[盔甲]
+72:雪球[盔甲]
+73:引力脉冲[盔甲]
+74:焰尾[盔甲]
+75:狂暴[盔甲]
+76:急行[盔甲]
+77:灵魂急行[盔甲]
+78:药水护盾[盔甲]
+79:食物储备[盔甲]
+80:惊喜礼物[盔甲]
+81:双倍伤害[未启用]
+82:快速攻击[未启用]
+83:急行[未启用]
+84:生命协同[盔甲]
+85:速度协同[盔甲]
+86:探索者[盔甲]
+87:船踪[未启用]
+88:缓慢抗性[盔甲]
+89:缓慢免疫[盔甲]
+</DropDownList>
+                  <LastState Value="71" RealAddress="2E1B8AF1C08"/>
+                  <Color>804000</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>28</Offset>
+                    <Offset>40</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>92</ID>
+                  <Description>"技能 3 ID"</Description>
+                  <DropDownList ReadOnly="1" DisplayValueAsItem="1">0:空的附魔位
+1:锋利[近战]
+2:击退[近战]
+3:抢夺[近战]
+4:探矿者[近战]
+5:火焰附加[近战]
+6:狂怒[近战]
+7:爆炸[近战]
+8:暴击[近战]
+9:霜冻[近战]
+10:毒雾[近战]
+11:剧毒[未启用]
+12:吸血[近战]
+13:协助[未启用]
+14:引力[近战]
+15:灵魂共振[近战]
+16:灵魂输导[近战]
+17:眩晕[近战]
+18:洞穴蜘蛛[生物魔咒]
+19:漩涡[近战]
+20:亡灵杀手[近战]
+21:进伤[近战]
+22:灵魂虹吸[近战]
+23:治愈光环[近战]
+24:链锁[近战]
+25:落雷[近战]
+26:回击[近战]
+27:冲击波[近战]
+28:虚弱[近战]
+29:节拍窃取[远程]
+30:适应度调整[未启用]
+31:弓之恩惠[未启用]
+32:反弹[远程]
+33:伤害[远程]
+34:冲击[远程]
+35:无限[远程]
+36:多重射击[远程]
+37:穿透[远程]
+38:连锁反应[远程]
+39:引力[远程]
+40:猎手弓魔咒[未启用]
+41:灵魂共振[远程]
+42:灵魂输导[远程]
+43:毒雾[远程]
+44:剧毒[未启用]
+45:范围霜冻[未启用]
+46:快速射击[远程]
+47:超级蓄力[远程]
+48:奖励射击[远程]
+49:祛魔[远程]
+50:爆炸射击[远程]
+51:光辉箭[远程]
+52:加速[远程]
+53:变大[远程]
+54:狂怒[远程]
+55:慢弓魔咒[未启用]
+56:霜冻[生物附魔]
+57:保护[盔甲]
+58:冷却[盔甲]
+59:拼死一搏[盔甲]
+60:偏转[盔甲]
+61:生命恢复[盔甲]
+62:荆棘[盔甲]
+63:治疗盟友[盔甲]
+64:屏蔽护盾[盔甲]
+65:屏障[盔甲]
+66:猎手弓标记附魔[未启用]
+67:回收[盔甲]
+68:冻结[盔甲]
+69:胆怯[盔甲]
+70:闪电[盔甲]
+71:灼烧[盔甲]
+72:雪球[盔甲]
+73:引力脉冲[盔甲]
+74:焰尾[盔甲]
+75:狂暴[盔甲]
+76:急行[盔甲]
+77:灵魂急行[盔甲]
+78:药水护盾[盔甲]
+79:食物储备[盔甲]
+80:惊喜礼物[盔甲]
+81:双倍伤害[未启用]
+82:快速攻击[未启用]
+83:急行[未启用]
+84:生命协同[盔甲]
+85:速度协同[盔甲]
+86:探索者[盔甲]
+87:船踪[未启用]
+88:缓慢抗性[盔甲]
+89:缓慢免疫[盔甲]
+</DropDownList>
+                  <LastState Value="85" RealAddress="2E1B8AF1C10"/>
+                  <Color>400080</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>40</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>93</ID>
+                  <Description>"技能 3 ID"</Description>
+                  <DropDownList ReadOnly="1" DisplayValueAsItem="1">0:空的附魔位
+1:锋利[近战]
+2:击退[近战]
+3:抢夺[近战]
+4:探矿者[近战]
+5:火焰附加[近战]
+6:狂怒[近战]
+7:爆炸[近战]
+8:暴击[近战]
+9:霜冻[近战]
+10:毒雾[近战]
+11:剧毒[未启用]
+12:吸血[近战]
+13:协助[未启用]
+14:引力[近战]
+15:灵魂共振[近战]
+16:灵魂输导[近战]
+17:眩晕[近战]
+18:洞穴蜘蛛[生物魔咒]
+19:漩涡[近战]
+20:亡灵杀手[近战]
+21:进伤[近战]
+22:灵魂虹吸[近战]
+23:治愈光环[近战]
+24:链锁[近战]
+25:落雷[近战]
+26:回击[近战]
+27:冲击波[近战]
+28:虚弱[近战]
+29:节拍窃取[远程]
+30:适应度调整[未启用]
+31:弓之恩惠[未启用]
+32:反弹[远程]
+33:伤害[远程]
+34:冲击[远程]
+35:无限[远程]
+36:多重射击[远程]
+37:穿透[远程]
+38:连锁反应[远程]
+39:引力[远程]
+40:猎手弓魔咒[未启用]
+41:灵魂共振[远程]
+42:灵魂输导[远程]
+43:毒雾[远程]
+44:剧毒[未启用]
+45:范围霜冻[未启用]
+46:快速射击[远程]
+47:超级蓄力[远程]
+48:奖励射击[远程]
+49:祛魔[远程]
+50:爆炸射击[远程]
+51:光辉箭[远程]
+52:加速[远程]
+53:变大[远程]
+54:狂怒[远程]
+55:慢弓魔咒[未启用]
+56:霜冻[生物附魔]
+57:保护[盔甲]
+58:冷却[盔甲]
+59:拼死一搏[盔甲]
+60:偏转[盔甲]
+61:生命恢复[盔甲]
+62:荆棘[盔甲]
+63:治疗盟友[盔甲]
+64:屏蔽护盾[盔甲]
+65:屏障[盔甲]
+66:猎手弓标记附魔[未启用]
+67:回收[盔甲]
+68:冻结[盔甲]
+69:胆怯[盔甲]
+70:闪电[盔甲]
+71:灼烧[盔甲]
+72:雪球[盔甲]
+73:引力脉冲[盔甲]
+74:焰尾[盔甲]
+75:狂暴[盔甲]
+76:急行[盔甲]
+77:灵魂急行[盔甲]
+78:药水护盾[盔甲]
+79:食物储备[盔甲]
+80:惊喜礼物[盔甲]
+81:双倍伤害[未启用]
+82:快速攻击[未启用]
+83:急行[未启用]
+84:生命协同[盔甲]
+85:速度协同[盔甲]
+86:探索者[盔甲]
+87:船踪[未启用]
+88:缓慢抗性[盔甲]
+89:缓慢免疫[盔甲]
+</DropDownList>
+                  <LastState Value="73" RealAddress="2E1B8AF1C18"/>
+                  <Color>400080</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>38</Offset>
+                    <Offset>40</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>94</ID>
+                  <Description>"技能 3 ID"</Description>
+                  <DropDownList ReadOnly="1" DisplayValueAsItem="1">0:空的附魔位
+1:锋利[近战]
+2:击退[近战]
+3:抢夺[近战]
+4:探矿者[近战]
+5:火焰附加[近战]
+6:狂怒[近战]
+7:爆炸[近战]
+8:暴击[近战]
+9:霜冻[近战]
+10:毒雾[近战]
+11:剧毒[未启用]
+12:吸血[近战]
+13:协助[未启用]
+14:引力[近战]
+15:灵魂共振[近战]
+16:灵魂输导[近战]
+17:眩晕[近战]
+18:洞穴蜘蛛[生物魔咒]
+19:漩涡[近战]
+20:亡灵杀手[近战]
+21:进伤[近战]
+22:灵魂虹吸[近战]
+23:治愈光环[近战]
+24:链锁[近战]
+25:落雷[近战]
+26:回击[近战]
+27:冲击波[近战]
+28:虚弱[近战]
+29:节拍窃取[远程]
+30:适应度调整[未启用]
+31:弓之恩惠[未启用]
+32:反弹[远程]
+33:伤害[远程]
+34:冲击[远程]
+35:无限[远程]
+36:多重射击[远程]
+37:穿透[远程]
+38:连锁反应[远程]
+39:引力[远程]
+40:猎手弓魔咒[未启用]
+41:灵魂共振[远程]
+42:灵魂输导[远程]
+43:毒雾[远程]
+44:剧毒[未启用]
+45:范围霜冻[未启用]
+46:快速射击[远程]
+47:超级蓄力[远程]
+48:奖励射击[远程]
+49:祛魔[远程]
+50:爆炸射击[远程]
+51:光辉箭[远程]
+52:加速[远程]
+53:变大[远程]
+54:狂怒[远程]
+55:慢弓魔咒[未启用]
+56:霜冻[生物附魔]
+57:保护[盔甲]
+58:冷却[盔甲]
+59:拼死一搏[盔甲]
+60:偏转[盔甲]
+61:生命恢复[盔甲]
+62:荆棘[盔甲]
+63:治疗盟友[盔甲]
+64:屏蔽护盾[盔甲]
+65:屏障[盔甲]
+66:猎手弓标记附魔[未启用]
+67:回收[盔甲]
+68:冻结[盔甲]
+69:胆怯[盔甲]
+70:闪电[盔甲]
+71:灼烧[盔甲]
+72:雪球[盔甲]
+73:引力脉冲[盔甲]
+74:焰尾[盔甲]
+75:狂暴[盔甲]
+76:急行[盔甲]
+77:灵魂急行[盔甲]
+78:药水护盾[盔甲]
+79:食物储备[盔甲]
+80:惊喜礼物[盔甲]
+81:双倍伤害[未启用]
+82:快速攻击[未启用]
+83:急行[未启用]
+84:生命协同[盔甲]
+85:速度协同[盔甲]
+86:探索者[盔甲]
+87:船踪[未启用]
+88:缓慢抗性[盔甲]
+89:缓慢免疫[盔甲]
+</DropDownList>
+                  <LastState Value="74" RealAddress="2E1B8AF1C20"/>
+                  <Color>400080</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>40</Offset>
+                    <Offset>40</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>98</ID>
+              <Description>"护甲属性"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" Activated="1" RealAddress="00000000"/>
+              <Color>808000</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>108</ID>
+                  <Description>"最大属性数量[不可修改]"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:这个物品不是护甲
+8:正常数量8
+</DropDownList>
+                  <LastState Value="8" RealAddress="2E1AFB85F5C"/>
+                  <Color>000000</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>5C</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>103</ID>
+                  <Description>"属性数量[不能超过最大]"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:0
+1:1
+2:2
+3:3
+4:4
+5:5
+6:6
+7:7
+8:8
+</DropDownList>
+                  <LastState Value="3" RealAddress="2E1AFB85F58"/>
+                  <Color>0000FF</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>58</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99</ID>
+                  <Description>"属性 1"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:
+1:+100% 灵魂收集
+2:35% 伤害减免
+3:30% 几率偏转
+4:当击中后有 5% 的几率传送走
+5:+50% 法器伤害
+6:-25% 法器冷却
+7:+20% 武器伤害提升
+8:+10 箭的额外拾取
+9:+30% 近战伤害
+10:+25% 近战攻击速度
+11:+30% 远程伤害
+12:3% 生命窃取光环
+13:+15% 移速
+14:给予一只宠物蝙蝠
+15:可与其他玩家共用治疗药水
+16:-10% 移速
+17:吸引怪物仇恨
+18:-40% 药水使用冷却
+19:100% 翻滚冷却延长
+20:50% 快速翻滚
+21:翻滚时短暂无敌
+22:10% 伤害减免
+23:50% 冰冻抗性
+</DropDownList>
+                  <LastState Value="5" RealAddress="2E1845CDBE0"/>
+                  <Color>000000</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                    <Offset>50</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>100</ID>
+                  <Description>"属性 2"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:
+1:+100% 灵魂收集
+2:35% 伤害减免
+3:30% 几率偏转
+4:当击中后有 5% 的几率传送走
+5:+50% 法器伤害
+6:-25% 法器冷却
+7:+20% 武器伤害提升
+8:+10 箭的额外拾取
+9:+30% 近战伤害
+10:+25% 近战攻击速度
+11:+30% 远程伤害
+12:3% 生命窃取光环
+13:+15% 移速
+14:给予一只宠物蝙蝠
+15:可与其他玩家共用治疗药水
+16:-10% 移速
+17:吸引怪物仇恨
+18:-40% 药水使用冷却
+19:100% 翻滚冷却延长
+20:50% 快速翻滚
+21:翻滚时短暂无敌
+22:10% 伤害减免
+23:50% 冰冻抗性
+</DropDownList>
+                  <LastState Value="7" RealAddress="2E1845CDBE2"/>
+                  <Color>000000</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>2</Offset>
+                    <Offset>50</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>101</ID>
+                  <Description>"属性 3"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:
+1:+100% 灵魂收集
+2:35% 伤害减免
+3:30% 几率偏转
+4:当击中后有 5% 的几率传送走
+5:+50% 法器伤害
+6:-25% 法器冷却
+7:+20% 武器伤害提升
+8:+10 箭的额外拾取
+9:+30% 近战伤害
+10:+25% 近战攻击速度
+11:+30% 远程伤害
+12:3% 生命窃取光环
+13:+15% 移速
+14:给予一只宠物蝙蝠
+15:可与其他玩家共用治疗药水
+16:-10% 移速
+17:吸引怪物仇恨
+18:-40% 药水使用冷却
+19:100% 翻滚冷却延长
+20:50% 快速翻滚
+21:翻滚时短暂无敌
+22:10% 伤害减免
+23:50% 冰冻抗性
+</DropDownList>
+                  <LastState Value="14" RealAddress="2E1845CDBE4"/>
+                  <Color>000000</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>4</Offset>
+                    <Offset>50</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>102</ID>
+                  <Description>"属性 4"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:
+1:+100% 灵魂收集
+2:35% 伤害减免
+3:30% 几率偏转
+4:当击中后有 5% 的几率传送走
+5:+50% 法器伤害
+6:-25% 法器冷却
+7:+20% 武器伤害提升
+8:+10 箭的额外拾取
+9:+30% 近战伤害
+10:+25% 近战攻击速度
+11:+30% 远程伤害
+12:3% 生命窃取光环
+13:+15% 移速
+14:给予一只宠物蝙蝠
+15:可与其他玩家共用治疗药水
+16:-10% 移速
+17:吸引怪物仇恨
+18:-40% 药水使用冷却
+19:100% 翻滚冷却延长
+20:50% 快速翻滚
+21:翻滚时短暂无敌
+22:10% 伤害减免
+23:50% 冰冻抗性
+</DropDownList>
+                  <LastState Value="0" RealAddress="2E1845CDBE6"/>
+                  <Color>000000</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>6</Offset>
+                    <Offset>50</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>104</ID>
+                  <Description>"属性 5"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:
+1:+100% 灵魂收集
+2:35% 伤害减免
+3:30% 几率偏转
+4:当击中后有 5% 的几率传送走
+5:+50% 法器伤害
+6:-25% 法器冷却
+7:+20% 武器伤害提升
+8:+10 箭的额外拾取
+9:+30% 近战伤害
+10:+25% 近战攻击速度
+11:+30% 远程伤害
+12:3% 生命窃取光环
+13:+15% 移速
+14:给予一只宠物蝙蝠
+15:可与其他玩家共用治疗药水
+16:-10% 移速
+17:吸引怪物仇恨
+18:-40% 药水使用冷却
+19:100% 翻滚冷却延长
+20:50% 快速翻滚
+21:翻滚时短暂无敌
+22:10% 伤害减免
+23:50% 冰冻抗性
+</DropDownList>
+                  <LastState Value="0" RealAddress="2E1845CDBE8"/>
+                  <Color>000000</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>8</Offset>
+                    <Offset>50</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>105</ID>
+                  <Description>"属性 6"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:
+1:+100% 灵魂收集
+2:35% 伤害减免
+3:30% 几率偏转
+4:当击中后有 5% 的几率传送走
+5:+50% 法器伤害
+6:-25% 法器冷却
+7:+20% 武器伤害提升
+8:+10 箭的额外拾取
+9:+30% 近战伤害
+10:+25% 近战攻击速度
+11:+30% 远程伤害
+12:3% 生命窃取光环
+13:+15% 移速
+14:给予一只宠物蝙蝠
+15:可与其他玩家共用治疗药水
+16:-10% 移速
+17:吸引怪物仇恨
+18:-40% 药水使用冷却
+19:100% 翻滚冷却延长
+20:50% 快速翻滚
+21:翻滚时短暂无敌
+22:10% 伤害减免
+23:50% 冰冻抗性
+</DropDownList>
+                  <LastState Value="0" RealAddress="2E1845CDBEA"/>
+                  <Color>000000</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>A</Offset>
+                    <Offset>50</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>106</ID>
+                  <Description>"属性 7"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:
+1:+100% 灵魂收集
+2:35% 伤害减免
+3:30% 几率偏转
+4:当击中后有 5% 的几率传送走
+5:+50% 法器伤害
+6:-25% 法器冷却
+7:+20% 武器伤害提升
+8:+10 箭的额外拾取
+9:+30% 近战伤害
+10:+25% 近战攻击速度
+11:+30% 远程伤害
+12:3% 生命窃取光环
+13:+15% 移速
+14:给予一只宠物蝙蝠
+15:可与其他玩家共用治疗药水
+16:-10% 移速
+17:吸引怪物仇恨
+18:-40% 药水使用冷却
+19:100% 翻滚冷却延长
+20:50% 快速翻滚
+21:翻滚时短暂无敌
+22:10% 伤害减免
+23:50% 冰冻抗性
+</DropDownList>
+                  <LastState Value="0" RealAddress="2E1845CDBEC"/>
+                  <Color>000000</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>C</Offset>
+                    <Offset>50</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>107</ID>
+                  <Description>"属性 8"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:
+1:+100% 灵魂收集
+2:35% 伤害减免
+3:30% 几率偏转
+4:当击中后有 5% 的几率传送走
+5:+50% 法器伤害
+6:-25% 法器冷却
+7:+20% 武器伤害提升
+8:+10 箭的额外拾取
+9:+30% 近战伤害
+10:+25% 近战攻击速度
+11:+30% 远程伤害
+12:3% 生命窃取光环
+13:+15% 移速
+14:给予一只宠物蝙蝠
+15:可与其他玩家共用治疗药水
+16:-10% 移速
+17:吸引怪物仇恨
+18:-40% 药水使用冷却
+19:100% 翻滚冷却延长
+20:50% 快速翻滚
+21:翻滚时短暂无敌
+22:10% 伤害减免
+23:50% 冰冻抗性
+</DropDownList>
+                  <LastState Value="0" RealAddress="2E1845CDBEE"/>
+                  <Color>000000</Color>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>p_equip</Address>
+                  <Offsets>
+                    <Offset>E</Offset>
+                    <Offset>50</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
